@@ -2,6 +2,7 @@ package com.msa.aws.msk.msk_consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class MessageReceiver {
 
     @KafkaListener(topics="Topic_from_java")
-    public void receiveMessage(ConsumerRecord<String, String> record){
+    public void receiveMessage(ConsumerRecord<String, String> record, Acknowledgment acknowledgment){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         System.out.println("PROCESSING START =======================================================" );
@@ -30,7 +31,7 @@ public class MessageReceiver {
         LocalDateTime now_af = LocalDateTime.now();
         System.out.println("END TIME： " + formatter.format(now_af) +" & MESSAGE ID： "+record.key());
         System.out.println("PROCESSING END =======================================================" );
-
+        acknowledgment.acknowledge(); // コミットを実行
     }
     //数字を受け取って、その時間待機するためのメソッド
     private void waitInMilliseconds(int milliseconds) {
