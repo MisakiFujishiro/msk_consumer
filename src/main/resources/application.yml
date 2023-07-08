@@ -9,8 +9,8 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: group_id
       auto-offset-reset: latest
-      enable-auto-commit: true # コミットの自動実行を有効にする
-      auto-commit-interval: 5000 # コミットの間隔（ミリ秒）
+#      enable-auto-commit: true # コミットの自動実行を有効にする
+#      auto-commit-interval: 5000 # コミットの間隔（ミリ秒）
     properties:
       security.protocol: SASL_SSL
       sasl.mechanism: AWS_MSK_IAM
