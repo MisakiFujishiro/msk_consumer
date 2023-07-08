@@ -3,6 +3,8 @@ server:
 
 spring:
   kafka:
+    listener:
+      ack-mode: manual
     consumer:
       bootstrap-servers: b-2.mafujishiromsmsk.2mkkld.c2.kafka.ap-northeast-1.amazonaws.com:9098
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
