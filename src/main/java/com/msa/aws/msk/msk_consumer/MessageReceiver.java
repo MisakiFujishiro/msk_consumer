@@ -1,5 +1,6 @@
 package com.msa.aws.msk.msk_consumer;
 
+import org.apache.kafka.clients.consumer.CommitFailedException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -27,14 +28,24 @@ public class MessageReceiver {
         System.out.println("wait time: " + waitTime);
         waitInMilliseconds(waitTime);
 
+        try {
+            acknowledgment.acknowledge(); // コミットを実行
+        } catch (CommitFailedException e) {
+            // コミットに失敗した場合の処理
+            System.out.println("Commit failed for record: " + record);
+            e.printStackTrace();
+        } catch (Exception e) {
+            // その他のエラー
+            System.out.println("Unexpected error while committing record: " + record);
+            e.printStackTrace();
+        }
         //処理完了時間の表示
         LocalDateTime now_af = LocalDateTime.now();
         System.out.println("END TIME： " + formatter.format(now_af) +" & MESSAGE ID： "+record.key());
         System.out.println("PROCESSING END =======================================================" );
-        System.out.println("ALL_INFO======= START_TIME:" + formatter.format(now_bf)+" & MESSAGE Value： "+record.value()+"END TIME： " + formatter.format(now_af) +" & MESSAGE partition： "+record.partition()+ " & MESSAGE Offset： "+record.offset()+"=======");
+        System.out.println("ALL_INFO======= &  START_TIME:" + formatter.format(now_bf)+" & MESSAGE Value： "+record.value()+" & END TIME： " + formatter.format(now_af) +" & MESSAGE partition： "+record.partition()+ " & MESSAGE Offset： "+record.offset()+" & =======ALL_INFO");
 
 
-        acknowledgment.acknowledge(); // コミットを実行
     }
     //数字を受け取って、その時間待機するためのメソッド
     private void waitInMilliseconds(int milliseconds) {
