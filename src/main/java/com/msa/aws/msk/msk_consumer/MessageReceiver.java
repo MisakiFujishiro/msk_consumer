@@ -30,6 +30,7 @@ public class MessageReceiver {
 
         try {
             acknowledgment.acknowledge(); // コミットを実行
+            System.out.println("Commit Sccess");
         } catch (CommitFailedException e) {
             // コミットに失敗した場合の処理
             System.out.println("Commit failed for record: " + record);
