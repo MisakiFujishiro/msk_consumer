@@ -44,7 +44,7 @@ public class MessageReceiver {
         LocalDateTime now_af = LocalDateTime.now();
         System.out.println("END TIME： " + formatter.format(now_af) +" & MESSAGE ID： "+record.key());
         System.out.println("PROCESSING END =======================================================" );
-        System.out.println("ALL_INFO======= &  START_TIME:" + formatter.format(now_bf)+" & MESSAGE Value： "+record.value()+" & END TIME： " + formatter.format(now_af) +" & MESSAGE partition： "+record.partition()+ " & MESSAGE Offset： "+record.offset()+" & =======ALL_INFO");
+        System.out.println("ALL_INFO======= & MESSAGE Offset： "+record.offset()+ " & MESSAGE partition： "+record.partition()+ " & START_TIME:" + formatter.format(now_bf)+" & MESSAGE Value： "+record.value()+" & END TIME： " + formatter.format(now_af) +" & =======ALL_INFO");
 
 
     }
