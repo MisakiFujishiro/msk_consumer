@@ -11,7 +11,7 @@ spring:
       group-id: CG-P5
       auto-offset-reset: latest
       enable-auto-commit: false # コミットの自動実行を有効にする
-      max-poll-records: 500  # 一度のpollで取得するレコードの最大数を1に設定
+      max-poll-records: 1  # 一度のpollで取得するレコードの最大数を1に設定
     #      auto-commit-interval: 5000 # コミットの間隔（ミリ秒）
     properties:
       security.protocol: SASL_SSL
