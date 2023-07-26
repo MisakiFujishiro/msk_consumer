@@ -2,6 +2,7 @@ package com.msa.aws.msk.msk_consumer;
 
 import org.apache.kafka.clients.consumer.CommitFailedException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.errors.WakeupException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class MessageReceiver {
 
-    @KafkaListener(topics="Topic_P5", groupId="CG-P5")
+    @KafkaListener(topics="Topic_P5")
     public void receiveMessage(ConsumerRecord<String, String> record, Acknowledgment acknowledgment){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -27,18 +28,12 @@ public class MessageReceiver {
         int waitTime = Integer.parseInt(record.value()) * 1000;
         System.out.println("wait time: " + waitTime);
         waitInMilliseconds(waitTime);
-
         try {
             acknowledgment.acknowledge(); // コミットを実行
-            System.out.println("Commit Sccess");
-        } catch (CommitFailedException e) {
-            // コミットに失敗した場合の処理
-            System.out.println("Commit failed for record: " + record);
-            e.printStackTrace();
+            System.out.println("Commit Success");
         } catch (Exception e) {
-            // その他のエラー
-            System.out.println("Unexpected error while committing record: " + record);
-            e.printStackTrace();
+            // エラーが発生したらここでスロー
+            throw new RuntimeException("Unexpected error while committing record: " + record, e);
         }
         //処理完了時間の表示
         LocalDateTime now_af = LocalDateTime.now();
