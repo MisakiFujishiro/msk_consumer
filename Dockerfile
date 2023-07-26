@@ -21,4 +21,4 @@ RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 EXPOSE 8081
 
 # Javaの実行
-CMD java -jar msk_consumer/target/msk_consumer-0.0.1-SNAPSHOT.jar
+CMD java -Xmx2g -jar msk_consumer/target/msk_consumer-0.0.1-SNAPSHOT.jar
