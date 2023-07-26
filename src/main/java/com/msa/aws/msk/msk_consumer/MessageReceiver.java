@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class MessageReceiver {
 
-    @KafkaListener(topics="Topic_P5")
+    @KafkaListener(topics="Topic_P5", groupId="CG-P5")
     public void receiveMessage(ConsumerRecord<String, String> record, Acknowledgment acknowledgment){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
