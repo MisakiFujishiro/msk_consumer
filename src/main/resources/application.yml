@@ -9,7 +9,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: CG-P5_timing_check_earliest
-      auto-offset-reset: latest
+      auto-offset-reset: earliest
       enable-auto-commit: false # コミットの自動実行を有効にする
       max-poll-records: 1  # 一度のpollで取得するレコードの最大数を1に設定
     #      auto-commit-interval: 5000 # コミットの間隔（ミリ秒）
